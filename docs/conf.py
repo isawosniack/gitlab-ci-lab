@@ -9,7 +9,8 @@ extensions = [
         "sphinx.ext.intersphinx", 
         "sphinx_design", 
         "myst_parser",
-        "sphinx_copybutton"
+        "sphinx_copybutton",
+        "sphinxcontrib.mermaid"
       ]
 
 html_title = "GitLab CI & Docker"
