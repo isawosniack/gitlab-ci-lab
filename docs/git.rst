@@ -4,12 +4,9 @@
 Git Setup Tips and Tricks
 =========================
 
-VSCode
-======
-
 To avoid typing the passphrase all the time when pushing changes:
 
-1. Start a new bash terminal in VSCode
+1. Start a new bash terminal
 2. Start the ssh-agent and execute it's output as shell code in order to set the evenironment variables ``SSH_AUTH_SOCK`` and ``SSH_AGENT_PID``
 3. Load your private SSH key to the ssh-agent::
 
