@@ -12,7 +12,7 @@ extensions = [
         "sphinx_copybutton"
       ]
 
-
+html_title = "GitLab CI & Docker"
 templates_path = ["_templates"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
