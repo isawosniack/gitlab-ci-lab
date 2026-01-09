@@ -1,8 +1,8 @@
 .. _git:
 
-=========================
-Git Setup Tips and Tricks
-=========================
+===================
+Git Tips and Tricks
+===================
 
 To avoid typing the passphrase all the time when pushing changes:
 
