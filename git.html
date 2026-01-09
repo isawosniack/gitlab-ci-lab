@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Git Setup &mdash; Esbonio Demo</title>
+  <title>Git Setup Tips and Tricks &mdash; Esbonio Demo</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -49,7 +49,7 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="gitlab.html">GitLab CI</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docker.html">Docker installation over CLI - No Docker Desktop</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Git Setup</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Git Setup Tips and Tricks</a></li>
 </ul>
 
         </div>
@@ -66,7 +66,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Git Setup</li>
+      <li class="breadcrumb-item active">Git Setup Tips and Tricks</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/git.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -76,17 +76,24 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="git-setup">
-<span id="git"></span><h1>Git Setup<a class="headerlink" href="#git-setup" title="Link to this heading"></a></h1>
-<p>To avoid typing the passphrase all the time wehn pusching changes:</p>
+  <section id="git-setup-tips-and-tricks">
+<span id="git"></span><h1>Git Setup Tips and Tricks<a class="headerlink" href="#git-setup-tips-and-tricks" title="Link to this heading"></a></h1>
+<p>To avoid typing the passphrase all the time when pushing changes:</p>
+<ol class="arabic">
+<li><p>Start a new bash terminal</p></li>
+<li><p>Start the ssh-agent and execute it’s output as shell code in order to set the evenironment variables <code class="docutils literal notranslate"><span class="pre">SSH_AUTH_SOCK</span></code> and <code class="docutils literal notranslate"><span class="pre">SSH_AGENT_PID</span></code></p></li>
+<li><p>Load your private SSH key to the ssh-agent:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">eval</span> <span class="s2">&quot;$(ssh-agent -s)&quot;</span>
 <span class="n">ssh</span><span class="o">-</span><span class="n">add</span> <span class="o">~/.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_ed25519</span>
 </pre></div>
 </div>
-<p>Test ssh connection without interactive shell (check if ssh key works):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="o">-</span><span class="n">T</span> <span class="n">git</span><span class="nd">@gith</span>
+</li>
+<li><p>Test if no passphrase is required for:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ssh</span> <span class="o">-</span><span class="n">T</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span>
 </pre></div>
 </div>
+</li>
+</ol>
 </section>
 
 
