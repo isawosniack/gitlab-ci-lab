@@ -12,8 +12,10 @@ How to keep both repos up-to-date:
     git remote -v
     git remote add github git@github.com:<USERNAME>/<REPO>.git
 
-.. hint::
-    Since GitHub repo is secondary, so commit/push made to GitLab would be pushed to GitHub.
+Allow git to origin to push to both github and gitlab repos::
+
+    git remote set-url --add --push origin git@github.com:isawosniack/gitlab-ci-lab.git
+    git remote set-url --add --push origin git@gitlab.com:isawosniack/gitlab-ci-lab.git
 
 A few considerations:
 
