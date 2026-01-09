@@ -1,3 +1,9 @@
+.. _index:
+
+========================
+HowTo GitLab CI & Docker
+========================
+
 .. toctree::
    :glob:
    :hidden:
