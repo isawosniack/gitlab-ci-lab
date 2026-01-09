@@ -42,42 +42,54 @@ Check docker installation::
 
     Restart your WSL for the changes to take effect. For more information, see `Docker post-installation steps  <https://docs.docker.com/engine/install/linux-postinstall/>`__.
 
-Usefull commands
-================
+Docker Basics
+=============
 
-Docker run: 
-docker run -> docker create + docker start
+- **Run** a docker container (create + start): ``docker run [OPTIONS] <image> <comand>``
+- **Start** a docker container: ``docker start -a <container_id>``
+- **List** all docker process: ``docker ps -a``
 
-docker start -a <container_id>
+.. hint::
+    The ``-a`` flag attaches the output to STDIN, STDOUT or STDERR
 
-To list all docker process:
-``docker ps -a``
-
-Execute an additional command in a container: ``docker exec -it <container_id> <command>``
+- Execute an **additional** command in a container: ``docker exec -it <container_id> <command>``
 
 .. hint::
     The ``it`` flag stands for ``-i`` and ``-t`` and both make sure that first, we are giving input arguments to the container we just started and second, that it's output is text-formated.
 
-    Keep in mind how Linux processes are structed: We usually have a STDIN, STDOUT and STDERR for each process that it's running and those communicate with us thought the terminal. 
+    - Keep in mind how Linux processes are structed: We usually have a STDIN, STDOUT and STDERR for each process that it's running and those communicate with us thought the terminal. 
 
-.. mermaid::
-    
-    block
-    columns 2
-    PA["Process A \n ping google.com"] 
-    PB["Process B \n redis-cli"]
-    block:group1
-        PA_IN["STDIN"]
-        PA_OUT["STDOUT"]
-        PA_ERR["STDERR"]
-    end
-    block:group2
-        PB_IN["STDIN"]
-        PB_OUT["STDOUT"]
-        PB_ERR["STDERR"]
-    end
-    space:3
-    Terminal
-    PB_IN --> Terminal
-    Terminal --> PB_OUT
-    Terminal --> PB_ERR
+    .. mermaid::
+        
+        block
+        columns 2
+        PA["Process A \n ping google.com"] 
+        PB["Process B \n redis-cli"]
+        block:group1
+            PA_IN["STDIN"]
+            PA_OUT["STDOUT"]
+            PA_ERR["STDERR"]
+        end
+        block:group2
+            PB_IN["STDIN"]
+            PB_OUT["STDOUT"]
+            PB_ERR["STDERR"]
+        end
+        space:3
+        Terminal
+        PB_IN --> Terminal
+        Terminal --> PB_OUT
+        Terminal --> PB_ERR
+
+    - You can pass ``sh`` as command option, which allows starting a shell within the container. You can also used for ``docker run [OPTIONS] <container> sh``, but this would restrict you to only have a single process running in your container.
+    - Usually, you would start a conatiner with a specific process (i.e WebServer) and on a separate tab, append an addicional process using ``docker exec -it <container_id> sh``.
+
+
+How to build our own image
+--------------------------
+
+For this we need a ``Dockerfile``. This file contains:
+
+- A Base Image
+- Commands to install additional programs
+- Command to run during the container startup
