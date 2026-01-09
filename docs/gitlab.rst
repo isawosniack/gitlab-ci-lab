@@ -4,7 +4,18 @@
 GitLab CI
 =========
 
-This project is hosted in GitHub and imported to GitLab. A few considerations:
+This project was frist created in GitHub and later imported to GitLab. Why? Because GitHub Pages requires an existing GitHub repo.
+
+How to keep both repos up-to-date:
+- Add the github repo as secondary (github) remote::
+
+    git remote -v
+    git remote add github git@github.com:<USERNAME>/<REPO>.git
+
+.. hint::
+    Since GitHub repo is secondary, so commit/push made to GitLab would be pushed to GitHub.
+
+A few considerations:
 
 - The GitHub author email address must be the same as the GitLab email address.
 - When importing the project for the first time, you probably will have to authenticate with the GitHub page.
@@ -15,6 +26,6 @@ This project is hosted in GitHub and imported to GitLab. A few considerations:
 4. Set the following CI/CD variables under `Settings - CI/CD - Variables - Add variable`::
 
     Key: GITHUB_REPO
-    Value: isawosniack/gitlab-ci-lab
+    Value: <USERNAME>/<REPO>
     GITHUB_TOKEN
     Value: <here you have to create a developer token for your GitHub account>

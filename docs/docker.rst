@@ -35,7 +35,7 @@ Check docker installation::
 
 .. hint::
 
-    In case `docker run` fails because of user rights, you can add your linux user to the dockier group::
+    In case `docker run` fails because of user rights, you can add your linux user to the docker group::
     
         sudo groupadd docker
         sudo usermod -aG docker $USER
