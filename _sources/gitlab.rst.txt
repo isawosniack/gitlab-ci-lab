@@ -4,7 +4,9 @@
 GitLab CI
 =========
 
-This project is hosted in GitHub and imported to GitLab. A few considerations:
+This project was frist created in GitHub and later imported to GitLab. Why? Because GitHub Pages requires an existing GitHub repo.
+
+A few considerations:
 
 - The GitHub author email address must be the same as the GitLab email address.
 - When importing the project for the first time, you probably will have to authenticate with the GitHub page.
