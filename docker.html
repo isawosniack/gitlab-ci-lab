@@ -416,7 +416,10 @@ window.addEventListener("load", load);
 <li class="toctree-l1"><a class="reference internal" href="gitlab.html">GitLab CI</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Docker installation over CLI - No Docker Desktop</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#docker-over-wsl">Docker over WSL</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#usefull-commands">Usefull commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#docker-basics">Docker Basics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#how-to-build-our-own-image">How to build our own image</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="git.html">Git Tips and Tricks</a></li>
@@ -485,19 +488,26 @@ sudo usermod -aG docker $USER
 <p>Restart your WSL for the changes to take effect. For more information, see <a class="reference external" href="https://docs.docker.com/engine/install/linux-postinstall/">Docker post-installation steps</a>.</p>
 </div>
 </section>
-<section id="usefull-commands">
-<h2>Usefull commands<a class="headerlink" href="#usefull-commands" title="Link to this heading"></a></h2>
-<p>Docker run:
-docker run -&gt; docker create + docker start</p>
-<p>docker start -a &lt;container_id&gt;</p>
-<p>To list all docker process:
-<code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span> <span class="pre">-a</span></code></p>
-<p>Execute an additional command in a container: <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">-it</span> <span class="pre">&lt;container_id&gt;</span> <span class="pre">&lt;command&gt;</span></code></p>
+<section id="docker-basics">
+<h2>Docker Basics<a class="headerlink" href="#docker-basics" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Run</strong> a docker container (create + start): <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">[OPTIONS]</span> <span class="pre">&lt;image&gt;</span> <span class="pre">&lt;comand&gt;</span></code></p></li>
+<li><p><strong>Start</strong> a docker container: <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">start</span> <span class="pre">-a</span> <span class="pre">&lt;container_id&gt;</span></code></p></li>
+<li><p><strong>List</strong> all docker process: <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">ps</span> <span class="pre">-a</span></code></p></li>
+</ul>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">-a</span></code> flag attaches the output to STDIN, STDOUT or STDERR</p>
+</div>
+<ul class="simple">
+<li><p>Execute an <strong>additional</strong> command in a container: <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">-it</span> <span class="pre">&lt;container_id&gt;</span> <span class="pre">&lt;command&gt;</span></code></p></li>
+</ul>
 <div class="admonition hint">
 <p class="admonition-title">Hint</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">it</span></code> flag stands for <code class="docutils literal notranslate"><span class="pre">-i</span></code> and <code class="docutils literal notranslate"><span class="pre">-t</span></code> and both make sure that first, we are giving input arguments to the container we just started and second, that it’s output is text-formated.</p>
-<p>Keep in mind how Linux processes are structed: We usually have a STDIN, STDOUT and STDERR for each process that it’s running and those communicate with us thought the terminal.</p>
-</div>
+<ul class="simple">
+<li><p>Keep in mind how Linux processes are structed: We usually have a STDIN, STDOUT and STDERR for each process that it’s running and those communicate with us thought the terminal.</p></li>
+</ul>
 <pre  class="mermaid">
         block
 columns 2
@@ -518,7 +528,21 @@ Terminal
 PB_IN --&gt; Terminal
 Terminal --&gt; PB_OUT
 Terminal --&gt; PB_ERR
-    </pre></section>
+    </pre><ul class="simple">
+<li><p>You can pass <code class="docutils literal notranslate"><span class="pre">sh</span></code> as command option, which allows starting a shell within the container. You can also used for <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">[OPTIONS]</span> <span class="pre">&lt;container&gt;</span> <span class="pre">sh</span></code>, but this would restrict you to only have a single process running in your container.</p></li>
+<li><p>Usually, you would start a conatiner with a specific process (i.e WebServer) and on a separate tab, append an addicional process using <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">exec</span> <span class="pre">-it</span> <span class="pre">&lt;container_id&gt;</span> <span class="pre">sh</span></code>.</p></li>
+</ul>
+</div>
+<section id="how-to-build-our-own-image">
+<h3>How to build our own image<a class="headerlink" href="#how-to-build-our-own-image" title="Link to this heading"></a></h3>
+<p>For this we need a <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>. This file contains:</p>
+<ul class="simple">
+<li><p>A Base Image</p></li>
+<li><p>Commands to install additional programs</p></li>
+<li><p>Command to run during the container startup</p></li>
+</ul>
+</section>
+</section>
 </section>
 
 
