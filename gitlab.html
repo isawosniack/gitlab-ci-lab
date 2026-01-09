@@ -86,9 +86,10 @@
 <span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">github</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="o">&lt;</span><span class="n">USERNAME</span><span class="o">&gt;/&lt;</span><span class="n">REPO</span><span class="o">&gt;.</span><span class="n">git</span>
 </pre></div>
 </div>
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<p>Since GitHub repo is secondary, so commit/push made to GitLab would be pushed to GitHub.</p>
+<p>Allow git to origin to push to both github and gitlab repos:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">remote</span> <span class="nb">set</span><span class="o">-</span><span class="n">url</span> <span class="o">--</span><span class="n">add</span> <span class="o">--</span><span class="n">push</span> <span class="n">origin</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">isawosniack</span><span class="o">/</span><span class="n">gitlab</span><span class="o">-</span><span class="n">ci</span><span class="o">-</span><span class="n">lab</span><span class="o">.</span><span class="n">git</span>
+<span class="n">git</span> <span class="n">remote</span> <span class="nb">set</span><span class="o">-</span><span class="n">url</span> <span class="o">--</span><span class="n">add</span> <span class="o">--</span><span class="n">push</span> <span class="n">origin</span> <span class="n">git</span><span class="nd">@gitlab</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">isawosniack</span><span class="o">/</span><span class="n">gitlab</span><span class="o">-</span><span class="n">ci</span><span class="o">-</span><span class="n">lab</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
 </div>
 <p>A few considerations:</p>
 <ul class="simple">
