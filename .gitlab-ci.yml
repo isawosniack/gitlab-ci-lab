@@ -1,0 +1,30 @@
+stages:
+  - docs
+
+variables:
+
+  DOCS_BUILD_DIR: docs/_build/html
+
+build-docs:
+  image: python:3.11.14
+  stage: docs
+  before_script:
+    - pip install --upgrade pip
+    - pip install -r requirements.txt
+  script:
+    - sphinx-build -b html docs $DOCS_BUILD_DIR
+    - git clone https://$GITHUB_TOKEN@github.com/$GITHUB_REPO.git gh-pages
+    - cd gh-pages
+    # Switch to gh-pages branch (create if it doesn't exist)
+    - git checkout gh-pages || git checkout --orphan gh-pages
+    - rm -rf *
+    # copy all hidden files and folders
+    - cp -r ../$DOCS_BUILD_DIR/. .
+    # do not ignore folders starting with "_". i.e _static (where my sphinx assets are in github-pages)
+    - touch .nojekyll
+    # Clear old docs and copy the new ones
+    - git config user.email "docs-ci@gitlab.com"
+    - git config user.name "GitLab docs-ci"
+    - git add .
+    - git commit -m "Update documentation using CI pipeline" || echo "No changes"
+    - git push origin gh-pages
