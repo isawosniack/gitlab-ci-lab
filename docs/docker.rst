@@ -82,7 +82,7 @@ Docker Basics
         Terminal --> PB_ERR
 
     - You can pass ``sh`` as command option, which allows starting a shell within the container. You can also used for ``docker run [OPTIONS] <container> sh``, but this would restrict you to only have a single process running in your container.
-    - Usually, you would start a conatiner with a specific process (i.e WebServer) and on a separate tab, append an addicional process using ``docker exec -it <container_id> sh``.
+    - Usually, you would start a conatiner with a specific process (e.g WebServer) and on a separate tab, append an addicional process using ``docker exec -it <container_id> sh``.
 
 
 How to build our own image
@@ -91,5 +91,59 @@ How to build our own image
 For this we need a ``Dockerfile``. This file contains:
 
 - A Base Image
-- Commands to install additional programs
+- Commands to install additional programs/dependencies
 - Command to run during the container startup
+
+.. hint::
+
+    In this example, we want to install and run Redis, which is a in-memory database 
+    For this, we use Alpine as a base image. 
+    Alpine is a light Linux distribution and contains the necessary pre-installed programs we need.
+
+1. Open WSL, create a new directory (``mkdir <DIR_NAME>``) and enter the folder (``cd <DIR_NAME>``)
+2. Start VSCode (``code .``)
+3. Create a new ``Dockerfile`` and use the following code::
+
+    # Specify the docker image we want to use as a base
+    FROM alpine
+
+    # Download and install a dependencies
+    RUN apk add --update redis
+
+    # Tell the image what to do when starting the container
+    CMD ["redis-server"]
+
+4. In your terminal, run ``docker build .``
+
+When executiong the build, the docker server will first look into our local build cache and check if alpine image has already been download before. 
+If not, it will automatically download it. Under the hood, the following happens (Docker > v18.x):
+
+1. Docker parses the Dockerfile and builds a dependency graph. In other words, docker checks the product of each instruction and what each instruction depends on.
+2. Docker resolves the base image (e.g. ``alpine``) and pulls missing layers if necessary.
+3. For each instruction that modifies the filesystem (e.g ``RUN`` or ``COPY``), BuildKit executes the instruction in an isolated build environment and records only the FS changes as a new **image layer**.
+4. Instructions that only affect image configuration (e.g ``CMD``, ``ENTRYPOINT``, ``ENV``, or ``WORKDIR``) are stored as **image metadata** and do not generate FS layers.
+5. After all layers and metadata are assembled, BuildKit exports the final image.
+   - If a tag is provided, the image is saved under that name.
+   - If no tag is provided, the image is stored as a dangling image identified by its **digest**.
+
+    .. note::
+
+        A image digest is not the same as image ID. It is a cryptographic hash containing the image metadata, the list of layer digests and the order of those layers.
+        
+        If two images have the same digest, they are identical. The image ID is derived from the digest and is a local identifier.
+
+.. caution::
+
+    **Before BuildKit (before Docker v18.09)**
+
+    1. Docker checks if the base alpine image exists locally and pulls it if necessary.
+    2. For each RUN instruction, it creates a temporary container and executes the command inside of it (e.g ``apk add --update redis``).
+
+       - ``apk`` is a package mananger for alpine distribution. It will start a sub-process of downloading and installing Redis.
+  
+    3. After finishing the previous step, the temporary container will be stopped and the filesystem changes will be committed into a new image layer. The temporary container is then removed. 
+    4. The ``CMD`` instruction is stored as metadata in the image and it will be default command executed when the container is started.
+    5. This image is saved and it's id is returned as output.
+
+
+
