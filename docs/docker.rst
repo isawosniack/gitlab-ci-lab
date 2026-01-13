@@ -1,11 +1,21 @@
 .. _docker:
 
-=================================================
+See next:
+
+.. toctree::
+    
+    docker_compose
+
+
+======
+Docker
+======
+
 Docker installation over CLI - No Docker Desktop
 =================================================
 
 Docker over WSL
-===============
+---------------
 
 The following steps are used to install *Ubuntu 24.04.3 LTS* distribution in the WSL environment.
 
@@ -115,6 +125,10 @@ For this we need a ``Dockerfile``. This file contains:
 
 4. In your terminal, run ``docker build .``
 
+   - Or, to follow the convention, tag a name to your image::
+ 
+        docker build -o plain -t <your docker ID>/<project name>:<version> .
+
 When executiong the build, the docker server will first look into our local build cache and check if alpine image has already been download before. 
 If not, it will automatically download it. Under the hood, the following happens (Docker > v18.x):
 
@@ -129,8 +143,10 @@ If not, it will automatically download it. Under the hood, the following happens
     .. note::
 
         A image digest is not the same as image ID. It is a cryptographic hash containing the image metadata, the list of layer digests and the order of those layers.
-        
+
         If two images have the same digest, they are identical. The image ID is derived from the digest and is a local identifier.
+
+        *By changing the order of RUN instructions in the docker file, it may also affect the time needed to build the image, because the layer digest will be different than the one in the local cache*
 
 .. caution::
 
@@ -145,5 +161,5 @@ If not, it will automatically download it. Under the hood, the following happens
     4. The ``CMD`` instruction is stored as metadata in the image and it will be default command executed when the container is started.
     5. This image is saved and it's id is returned as output.
 
-
+6. Run the docker image: ``docker run <image name/image id>``
 
