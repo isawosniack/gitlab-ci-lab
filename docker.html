@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Docker installation over CLI - No Docker Desktop &mdash; Esbonio Demo</title>
+  <title>Docker &mdash; Esbonio Demo</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -389,7 +389,7 @@ window.addEventListener("load", load);
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Git Tips and Tricks" href="git.html" />
+    <link rel="next" title="Docker Compose" href="docker_compose.html" />
     <link rel="prev" title="GitLab CI" href="gitlab.html" /> 
 </head>
 
@@ -414,8 +414,12 @@ window.addEventListener("load", load);
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="gitlab.html">GitLab CI</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Docker installation over CLI - No Docker Desktop</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#docker-over-wsl">Docker over WSL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker_compose.html">Docker Compose</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Docker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#docker-installation-over-cli-no-docker-desktop">Docker installation over CLI - No Docker Desktop</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#docker-over-wsl">Docker over WSL</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#docker-basics">Docker Basics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#how-to-build-our-own-image">How to build our own image</a></li>
 </ul>
@@ -439,7 +443,7 @@ window.addEventListener("load", load);
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Docker installation over CLI - No Docker Desktop</li>
+      <li class="breadcrumb-item active">Docker</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/docker.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -449,10 +453,18 @@ window.addEventListener("load", load);
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="docker-installation-over-cli-no-docker-desktop">
-<span id="docker"></span><h1>Docker installation over CLI - No Docker Desktop<a class="headerlink" href="#docker-installation-over-cli-no-docker-desktop" title="Link to this heading"></a></h1>
+  <p id="docker">See next:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="docker_compose.html">Docker Compose</a></li>
+</ul>
+</div>
+<section id="id1">
+<h1>Docker<a class="headerlink" href="#id1" title="Link to this heading"></a></h1>
+<section id="docker-installation-over-cli-no-docker-desktop">
+<h2>Docker installation over CLI - No Docker Desktop<a class="headerlink" href="#docker-installation-over-cli-no-docker-desktop" title="Link to this heading"></a></h2>
 <section id="docker-over-wsl">
-<h2>Docker over WSL<a class="headerlink" href="#docker-over-wsl" title="Link to this heading"></a></h2>
+<h3>Docker over WSL<a class="headerlink" href="#docker-over-wsl" title="Link to this heading"></a></h3>
 <p>The following steps are used to install <em>Ubuntu 24.04.3 LTS</em> distribution in the WSL environment.</p>
 <p>The steps were taken from the <a class="reference external" href="https://docs.docker.com/engine/install/ubuntu/">Docker documentation</a> and require admin rights:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>sudo apt update
@@ -487,6 +499,7 @@ sudo usermod -aG docker $USER
 </div>
 <p>Restart your WSL for the changes to take effect. For more information, see <a class="reference external" href="https://docs.docker.com/engine/install/linux-postinstall/">Docker post-installation steps</a>.</p>
 </div>
+</section>
 </section>
 <section id="docker-basics">
 <h2>Docker Basics<a class="headerlink" href="#docker-basics" title="Link to this heading"></a></h2>
@@ -562,7 +575,15 @@ Alpine is a light Linux distribution and contains the necessary pre-installed pr
 </pre></div>
 </div>
 </li>
-<li><p>In your terminal, run <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">.</span></code></p></li>
+<li><p>In your terminal, run <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">build</span> <span class="pre">.</span></code></p>
+<ul>
+<li><p>Or, to follow the convention, tag a name to your image:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">build</span> <span class="o">-</span><span class="n">o</span> <span class="n">plain</span> <span class="o">-</span><span class="n">t</span> <span class="o">&lt;</span><span class="n">your</span> <span class="n">docker</span> <span class="n">ID</span><span class="o">&gt;/&lt;</span><span class="n">project</span> <span class="n">name</span><span class="o">&gt;</span><span class="p">:</span><span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span> <span class="o">.</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
 </ol>
 <p>When executiong the build, the docker server will first look into our local build cache and check if alpine image has already been download before.
 If not, it will automatically download it. Under the hood, the following happens (Docker &gt; v18.x):</p>
@@ -579,6 +600,7 @@ If not, it will automatically download it. Under the hood, the following happens
 <p class="admonition-title">Note</p>
 <p>A image digest is not the same as image ID. It is a cryptographic hash containing the image metadata, the list of layer digests and the order of those layers.</p>
 <p>If two images have the same digest, they are identical. The image ID is derived from the digest and is a local identifier.</p>
+<p><em>By changing the order of RUN instructions in the docker file, it may also affect the time needed to build the image, because the layer digest will be different than the one in the local cache</em></p>
 </div>
 </div></blockquote>
 </li>
@@ -598,6 +620,9 @@ If not, it will automatically download it. Under the hood, the following happens
 <li><p>This image is saved and it’s id is returned as output.</p></li>
 </ol>
 </div>
+<ol class="arabic simple" start="6">
+<li><p>Run the docker image: <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span> <span class="pre">&lt;image</span> <span class="pre">name/image</span> <span class="pre">id&gt;</span></code></p></li>
+</ol>
 </section>
 </section>
 </section>
@@ -607,7 +632,7 @@ If not, it will automatically download it. Under the hood, the following happens
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="gitlab.html" class="btn btn-neutral float-left" title="GitLab CI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="git.html" class="btn btn-neutral float-right" title="Git Tips and Tricks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="docker_compose.html" class="btn btn-neutral float-right" title="Docker Compose" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
